@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { GlobalStyles } from "../utils/globalStyles";
@@ -17,9 +17,10 @@ const Home = () => {
   const cards = useSelector((state) => state.cards.value);
   const navigation = useNavigation();
   const { height } = useWindowDimensions();
-  const [amount, setAmount] = useState("");
-
+  const textInputRef = useRef(null);
   const numberRegex = /^[1-9]\d*(\.\d+)?$/;
+
+  const [amount, setAmount] = useState("");
 
   const navigatePage = () => {
     if (amount?.trim() === "" || !amount.match(numberRegex)) {
@@ -32,6 +33,12 @@ const Home = () => {
 
     navigation.navigate(cards?.length > 0 ? "Cards" : "AddCard", { amount });
   };
+
+  useEffect(() => {
+    if (textInputRef?.current) {
+      textInputRef?.current?.focus();
+    }
+  }, [textInputRef]);
 
   return (
     <ScrollView
@@ -55,6 +62,7 @@ const Home = () => {
 
           <TextInput
             mode="outlined"
+            ref={textInputRef}
             label="Amount"
             editable={true}
             outlineStyle={styles.textInputOutline}

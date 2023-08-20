@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { PaymentIcon } from "react-native-payment-icons";
+import moment from "moment/moment";
 import { useRoute } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { GlobalStyles, ScreenPadding } from "../utils/globalStyles";
@@ -68,7 +69,10 @@ const AddCard = () => {
       });
       setDisableBtn(true);
       return;
-    } else if (card.expiry?.trim() === "") {
+    } else if (
+      card.expiry?.trim() === "" ||
+      !moment(card.expiry, "MM/YY").isValid()
+    ) {
       Toast.show({
         type: ToastModes.error,
         text1: "Enter valid expiry date!",
