@@ -14,7 +14,7 @@ const MainNavigation = () => {
       initialRouteName="Home"
     >
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
         name="Home"
         component={Home}
       />

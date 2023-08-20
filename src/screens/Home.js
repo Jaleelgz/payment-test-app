@@ -1,21 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { GlobalStyles } from "../utils/globalStyles";
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
-      <Text>Home</Text>
+    <View style={[GlobalStyles.screen]}>
       <Text>Home</Text>
     </View>
   );

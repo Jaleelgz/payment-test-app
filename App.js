@@ -13,6 +13,7 @@ import { ToastConfig } from "./src/constants/toastConfig";
 import { ErrorHandler } from "./src/common/ErrorBoundary";
 import Main from "./src/Main";
 import { useCallback } from "react";
+import { COLORS } from "./src/constants/colors";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,7 +43,7 @@ export default function App() {
       <StoreProvider store={store}>
         <PaperProvider theme={theme}>
           <NavigationContainer>
-            <StatusBar style="auto" backgroundColor="#fff" />
+            <StatusBar style="auto" backgroundColor={COLORS.DISABLED_F2} />
 
             <ErrorHandler>
               <Main />

@@ -7,7 +7,8 @@ export const FONTS = {
 
 export const FONT_SIZE = {
   SMALL: 12,
-  NORMAL: 15,
+  NORMAL: 14,
   MEDIUM: 18,
-  BIG: 25,
+  BIG: 20,
+  XBIG: 22,
 };
