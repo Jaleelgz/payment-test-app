@@ -1,0 +1,36 @@
+{
+  "cli": {
+    "version": ">= 4.0.1"
+  },
+  "build": {
+    "development": {
+      "node": "16.20.0",
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "dev_release": {
+      "node": "16.20.0",
+      "developmentClient": false,
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "node": "16.20.0",
+      "distribution": "internal",
+      "channel": "preview"
+    },
+    "production": {
+      "node": "16.20.0",
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
