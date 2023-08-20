@@ -7,11 +7,13 @@ import { IMAGES } from "../constants/images";
 import { FONTS, FONT_SIZE } from "../constants/fonts";
 import { COLORS } from "../constants/colors";
 import { TextInput } from "react-native-paper";
-import ParimaryButton from "../components/ParimaryButton";
+import PrimaryButton from "../components/PrimaryButton";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { ToastModes } from "../enum/ToastModes";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const cards = useSelector((state) => state.cards.value);
   const navigation = useNavigation();
   const [amount, setAmount] = useState("");
 
@@ -26,7 +28,7 @@ const Home = () => {
       return;
     }
 
-    navigation.navigate("Cards", { amount });
+    navigation.navigate(cards?.length === 0 ? "Cards" : "AddCard", { amount });
   };
 
   return (
@@ -65,7 +67,7 @@ const Home = () => {
         }
       />
 
-      <ParimaryButton
+      <PrimaryButton
         text={"Continue"}
         disabled={false}
         onPress={navigatePage}

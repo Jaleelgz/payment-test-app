@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native";
 import { COLORS } from "../constants/colors";
 import { FONTS, FONT_SIZE } from "../constants/fonts";
 
-const ParimaryButton = ({ text, onPress, disabled }) => {
+const PrimaryButton = ({ text, onPress, disabled }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -15,7 +15,7 @@ const ParimaryButton = ({ text, onPress, disabled }) => {
   );
 };
 
-export default ParimaryButton;
+export default PrimaryButton;
 
 const styles = StyleSheet.create({
   btn: {
