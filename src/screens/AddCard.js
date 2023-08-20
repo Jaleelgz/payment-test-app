@@ -113,6 +113,19 @@ const AddCard = () => {
     navigation.navigate("Success", { amount });
   };
 
+  const onChangeExpiry = (text) => {
+    let textTemp = text
+      .replace(/^([1-9]\/|[2-9])$/g, "0$1/")
+      .replace(/^(0[1-9]|1[0-2])$/g, "$1/")
+      .replace(/^([0-1])([3-9])$/g, "0$1/$2")
+      .replace(/^(0?[1-9]|1[0-2])([0-9]{2})$/g, "$1/$2")
+      .replace(/^([0]+)\/|[0]+$/g, "0")
+      .replace(/[^\d\/]|^[\/]*$/g, "")
+      .replace(/\/\//g, "/");
+
+    setCard({ ...card, expiry: textTemp });
+  };
+
   useEffect(() => {
     validateCardDetails();
   }, [card]);
@@ -203,7 +216,7 @@ const AddCard = () => {
                 value={card.expiry}
                 placeholder="mm/yy"
                 keyboardType="number-pad"
-                onChangeText={(value) => setCard({ ...card, expiry: value })}
+                onChangeText={onChangeExpiry}
                 maxLength={5}
                 style={[styles.textInputStyle]}
                 selectionColor={COLORS.PRIMARY}
@@ -213,6 +226,8 @@ const AddCard = () => {
             <View style={{ flex: 1 }}>
               <Text style={styles.headTxt}>Security code / CVV</Text>
               <TextInput
+                secureTextEntry={true}
+                error={card.cvv?.trim() === ""}
                 mode="outlined"
                 editable={true}
                 outlineStyle={styles.textInputOutline}

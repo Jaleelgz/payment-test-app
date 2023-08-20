@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -11,10 +11,12 @@ import PrimaryButton from "../components/PrimaryButton";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { ToastModes } from "../enum/ToastModes";
 import { useSelector } from "react-redux";
+import { useWindowDimensions } from "react-native";
 
 const Home = () => {
   const cards = useSelector((state) => state.cards.value);
   const navigation = useNavigation();
+  const { height } = useWindowDimensions();
   const [amount, setAmount] = useState("");
 
   const numberRegex = /^[1-9]\d*(\.\d+)?$/;
@@ -28,51 +30,63 @@ const Home = () => {
       return;
     }
 
-    navigation.navigate(cards?.length === 0 ? "Cards" : "AddCard", { amount });
+    navigation.navigate(cards?.length > 0 ? "Cards" : "AddCard", { amount });
   };
 
   return (
-    <View style={[GlobalStyles.screen, styles.container]}>
-      <Image source={IMAGES.HOME_PAY} style={styles.homeImg} />
-      <Text style={GlobalStyles.screenHeadTxt}>
-        How much would you like to pay?
-      </Text>
-      <Text style={GlobalStyles.screenSubTxt}>
-        Please enter amount in below column
-      </Text>
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{
+        minHeight: height,
+      }}
+      style={GlobalStyles.appBarHeightMargin}
+    >
+      <View style={[GlobalStyles.screen, styles.container]}>
+        <View style={{ width: "100%" }}>
+          <Image source={IMAGES.HOME_PAY} style={styles.homeImg} />
+          <Text style={GlobalStyles.screenHeadTxt}>
+            How much would you like to pay?
+          </Text>
+          <Text style={GlobalStyles.screenSubTxt}>
+            Please enter amount in below column
+          </Text>
 
-      <TextInput
-        mode="outlined"
-        label="Amount"
-        editable={true}
-        outlineStyle={styles.textInputOutline}
-        outlineColor={COLORS.TEXT_SECONDARY}
-        value={amount}
-        keyboardType="number-pad"
-        onChangeText={setAmount}
-        maxLength={7}
-        style={[styles.textInputStyle]}
-        selectionColor={COLORS.PRIMARY}
-        focusable={true}
-        left={
-          <TextInput.Icon
-            icon={() => (
-              <MaterialCommunityIcons
-                color={"#455154"}
-                name="currency-usd"
-                size={24}
+          <TextInput
+            mode="outlined"
+            label="Amount"
+            editable={true}
+            outlineStyle={styles.textInputOutline}
+            outlineColor={COLORS.TEXT_SECONDARY}
+            value={amount}
+            keyboardType="number-pad"
+            onChangeText={setAmount}
+            maxLength={7}
+            style={[styles.textInputStyle]}
+            selectionColor={COLORS.PRIMARY}
+            focusable={true}
+            left={
+              <TextInput.Icon
+                icon={() => (
+                  <MaterialCommunityIcons
+                    color={"#455154"}
+                    name="currency-usd"
+                    size={24}
+                  />
+                )}
               />
-            )}
+            }
           />
-        }
-      />
 
-      <PrimaryButton
-        text={"Continue"}
-        disabled={false}
-        onPress={navigatePage}
-      />
-    </View>
+          <PrimaryButton
+            text={"Continue"}
+            disabled={false}
+            onPress={navigatePage}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -85,7 +99,7 @@ const styles = StyleSheet.create({
   },
   homeImg: {
     width: "100%",
-    maxHeight: 300,
+    height: 300,
     resizeMode: "contain",
   },
   payHeadTxt: {
