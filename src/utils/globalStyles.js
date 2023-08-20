@@ -11,6 +11,7 @@ export const GlobalStyles = StyleSheet.create({
     width: "100%",
     flex: 1,
     padding: ScreenPadding,
+    backgroundColor: COLORS.WHITE,
   },
   appBarHeightMargin: {
     marginTop: Constants.statusBarHeight,
